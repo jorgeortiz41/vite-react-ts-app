@@ -3,12 +3,14 @@ import bull from '/bullmarket.png'
 
 import Stocks from './Stocks'
 import './App.css'
+import MenuBar from './components/MenuBar'
 
 function App() {
 
 
   return (
     <>
+      <MenuBar />
       <div>
           <img src={bull} className="logo" alt="Vite logo" />
         
