@@ -40,12 +40,6 @@ function Stocks() {
     const [open, setOpen] = useState<boolean>(false)
     const [ticker, setTicker] = useState<string>('MSFT')
 
-    const date = new Date();
-    date.setDate(date.getDate() - 4);
-    
-    const formattedDate = date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    console.log(formattedDate); 
-
     const options = {
         //chart options
         responsive: true,
@@ -65,6 +59,35 @@ function Stocks() {
         ],
     };
 
+    function formatData(timeseries: {[key: string]: any}) {
+      for (const key in timeseries['timeSeries']) {
+        //convert key to formatted date like i did above but keep hours and minutes
+        const date = new Date(key);
+        const formattedDate = date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' });
+        //push formatted date to chartLabels
+        chartLabels.push(formattedDate);
+        //push response['timeSeries'][key]['close'] to chartDataPoints
+        chartDataPoints.push(timeseries['timeSeries'][key]['close']);
+
+        //keep all labels and datapoints of ONLY the most recent day
+        const dayArr = []
+        const recentDay = chartLabels[0].split(',')[0]
+        for (const label in chartLabels) {
+          if(label.split(',')[0] == recentDay){
+            dayArr.push(label)
+          }
+        }
+        console.log(dayArr)
+        console.log(recentDay)
+
+
+
+        //set state for chartLabels and chartDataPoints
+        setChartLabels(dayArr);
+        setChartDataPoints(chartDataPoints);
+    }
+    }
+
 
     //create useEffect to call API and set state
     useEffect(() => {
@@ -79,23 +102,7 @@ function Stocks() {
             setChartData(response);
             console.log(response);
 
-            for (const key in response['timeSeries']) {
-                //convert key to formatted date like i did above
-                const date = new Date(key);
-                const formattedDate = date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-                //push formatted date to chartLabels
-                chartLabels.push(formattedDate);
-                //push response['timeSeries'][key]['close'] to chartDataPoints
-                chartDataPoints.push(response['timeSeries'][key]['close']);
-
-                //reverse chartLabels and chartDataPoints
-                chartLabels.reverse();
-                chartDataPoints.reverse();
-
-                //set state for chartLabels and chartDataPoints
-                setChartLabels(chartLabels);
-                setChartDataPoints(chartDataPoints);
-            }
+            formatData(response);
 
             } catch (error) {
                     console.error('Error fetching data:', error);
@@ -116,17 +123,22 @@ function Stocks() {
 
 
   return (
-    <div>
+    <div className='stock-card'>
         <button className='button' onClick={() => {
             
 
             setOpen(true)
             
 
-        }}>Show MSFT 15min</button>
+        }}>MSFT</button>
+        <button className='button'>15MIN</button>
+        <button className='button'>SMA</button>
 
         {open && data ? (
-        <Line data={data} options={options} />
+        <Line 
+        data={data} 
+        options={options} 
+        />
       ) : (
         <p>Loading chart data...</p>
       )}
