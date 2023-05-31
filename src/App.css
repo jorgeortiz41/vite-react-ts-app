@@ -35,7 +35,8 @@
 .card {
   padding: 0;
   /*the stock component is rendered inside here, make it bigger so chart is clearer*/
-  width: 95%;
+  height: 80%;
+  width: 80%;
   margin: 1em;
 
 }
