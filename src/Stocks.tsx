@@ -5,7 +5,7 @@ import AlphaVantage, {
     DataType,
     StockTimeSeries,
   } from 'alphavantage-wrapper-ts';
-  import {
+import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
@@ -17,6 +17,7 @@ import AlphaVantage, {
   } from 'chart.js';
 import {Line} from 'react-chartjs-2'
 import.meta.env.VITE_AV_KEY
+import './Stocks.css'
 
 ChartJS.register(
     CategoryScale,
@@ -135,15 +136,15 @@ function Stocks() {
 
   return (
     <div className='stock-card'>
-        <button className='button' onClick={() => {
+        <button className='button-options' onClick={() => {
             
 
             setOpen(true)
             
 
         }}>{ticker}</button>
-        <button className='button'>15MIN</button>
-        <button className='button'>SMA</button>
+        <button className='button-options'>15MIN</button>
+        <button className='button-options'>SMA</button>
 
         {open && data ? (
         <Line 
