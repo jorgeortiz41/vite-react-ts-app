@@ -38,7 +38,7 @@ function Stocks() {
     const [chartLabels, setChartLabels] = useState<string[]>([])
     const [chartDataPoints, setChartDataPoints] = useState<string[]>([])
     const [open, setOpen] = useState<boolean>(false)
-    const [ticker, setTicker] = useState<string>('MSFT')
+    const [ticker, setTicker] = useState<string>('TSLA')
 
     const options = {
         //chart options
@@ -50,7 +50,7 @@ function Stocks() {
         labels: chartLabels,
         datasets: [
             {
-                label: 'MSFT',
+                label: 'TSLA',
                 data: chartDataPoints,
                 fill: false,
                 backgroundColor: 'rgb(255, 99, 132)',
@@ -70,20 +70,31 @@ function Stocks() {
         chartDataPoints.push(timeseries['timeSeries'][key]['close']);
 
         //keep all labels and datapoints of ONLY the most recent day
-        const dayArr = []
-        const recentDay = chartLabels[0].split(',')[0]
-        for (const label in chartLabels) {
-          if(label.split(',')[0] == recentDay){
-            dayArr.push(label)
-          }
-        }
-        console.log(dayArr)
-        console.log(recentDay)
+        // const dayArr = []
+        // const recentDay = chartLabels[0].split(',')[0]
+        // for (const label in chartLabels) {
+        //   if(label.split(',')[0] == recentDay){
+        //     dayArr.push(label)
+        //   }
+        // }
+        // console.log(dayArr)
+        // console.log(recentDay)
+
+        // for(const point in chartDataPoints){
+        //   if(chartDataPoints.length > dayArr.length){
+        //     chartDataPoints.pop()
+        //   }
+        // }
+
+        //rearrage data so that it is in chronological order
+        chartLabels.reverse();
+        chartDataPoints.reverse();
+      
 
 
 
         //set state for chartLabels and chartDataPoints
-        setChartLabels(dayArr);
+        setChartLabels(chartLabels);
         setChartDataPoints(chartDataPoints);
     }
     }
@@ -130,7 +141,7 @@ function Stocks() {
             setOpen(true)
             
 
-        }}>MSFT</button>
+        }}>{ticker}</button>
         <button className='button'>15MIN</button>
         <button className='button'>SMA</button>
 
