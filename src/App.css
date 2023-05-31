@@ -1,8 +1,16 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: auto;
   text-align: center;
+  /*align all content in the middle of the page*/
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  /*make div fill page*/
+  min-height: 100vh;
+  min-width: 100vw; 
+  
 }
 
 .title{
@@ -25,7 +33,11 @@
 
 
 .card {
-  padding: 2em;
+  padding: 0;
+  /*the stock component is rendered inside here, make it bigger so chart is clearer*/
+  width: 95%;
+  margin: 1em;
+
 }
 
 .button {

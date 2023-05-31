@@ -19,7 +19,7 @@ function App() {
         <Stocks />
       </div>
       <p className='read-the-docs'>
-        Stock data shown is from the Alpha Vantage API, data is 4 days old
+        Stock data shown is from the Alpha Vantage API, data is a day old
       </p>
     </>
   )
