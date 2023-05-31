@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "alphavantage-wrapper-ts": "^2.2.0",
+    "axios": "^1.4.0",
+    "chart.js": "^4.3.0",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
